@@ -46,7 +46,7 @@ class BaseModel:
 
         for key, value in kwargs.items():
             """looping over kwarg's elements"""
-            if hasattr(BaseModel, key):
+            if hasattr(self, key):
                 """check if the  attribute exist in the BaseModel Class"""
                 if key  == 'created_at' or key == 'updated_at':
                     """convert the string to datetiem object"""
@@ -62,6 +62,14 @@ class BaseModel:
             """check if <created_at> in assained data or not"""
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
+            isinstance_keys.append('updated_at')
+            isinstance_keys.append('created_at')
+    
+        if 'updated_at' not in isinstance_keys:
+            """if there is no <updated_at>, copy the <create_at>"""
+            self.updated_at = self.created_at
+            isinstance_keys.append('updated_at')
+
         if 'id' not in isinstance_keys:
             """check if <id> in assained data or not"""
             self.id = str(uuid.uuid4())
