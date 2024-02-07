@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """this the base module"""
 import uuid,datetime
-from engine import file_storage
-
-storage = __import__('__init__').storage
+from models import storage
 class BaseModel:
     """
     this will be the base class for all other models
