@@ -7,17 +7,12 @@ class BaseModel:
     this will be the base class for all other models
     in our application. It provides common functionalities
     to all classes.
-    """
-    def __init__(self):
-        """
-        this is the constructor of the base class that not take
-        any argumants and no return value "NULL"
-        """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = self.created_at
+    """ 
 
     def __init__(self, *args, **kwargs):
+        self.id = ''
+        self.created_at = datetime.datetime.now()
+        self.updated_at = self.created_at
         """
         construct the inctance from dictionary or from individual arguments
         kwargs: mast be the an attribute in the calss
@@ -40,23 +35,30 @@ class BaseModel:
         isinstance_keys = []
 
         if kwargs is {}:
+            self.id = str(uuid.uuid4())
             """check if there are no <kwargs> passed to the function"""
-            self.__init__()
             return
-
+        print("start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n")
         for key, value in kwargs.items():
             """looping over kwarg's elements"""
-            if hasattr(self, key):
-                """check if the  attribute exist in the BaseModel Class"""
-                if key  == 'created_at' or key == 'updated_at':
-                    """convert the string to datetiem object"""
-                    my_time = datetime.strptime(value,'%Y-%m-%dT%H:%M:%S.%f')
-                    setattr(self, key, my_time)
-                else:
-                    """atherwise  just asign the value to the attribute"""
+            
+            """check if the  attribute exist in the BaseModel Class"""
+            if key  == 'created_at':
+                """convert the string to datetiem object"""
+                my_time = datetime.datetime.strptime(value,'%Y-%m-%dT%H:%M:%S.%f')
+                self.created_at = my_time
+            elif key == 'updated_at':
+                my_time = datetime.datetime.strptime(value,'%Y-%m-%dT%H:%M:%S.%f')
+                self.updated_at = my_time
+
+            else:
+                """atherwise  just asign the value to the attribute"""
+                print("{} : {} <<<<<<<else side>>>>>>>>>".format(key, value))
+                if key != '__class__':
                     setattr(self, key, value)
-                """push the key to the list <isinstance_keys>"""
-                isinstance_keys.append(key)
+
+            """push the key to the list <isinstance_keys>"""
+            isinstance_keys.append(key)
 
         if 'created_at' not in isinstance_keys:
             """check if <created_at> in assained data or not"""
@@ -97,10 +99,9 @@ class BaseModel:
         this function  it has no argumants and  returns 
         a dictionary containing all keys/values of __dict__ of the instance
         """
-        obj_dict = {
-            '__class__': self.__class__.__name__,
-        }
-        obj_dict.update(self.__dict__)
+        obj_dict = self.__dict__.copy()
+        obj_dict['__class__'] = self.__class__.__name__
+        
 
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
@@ -118,6 +119,15 @@ print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
     print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+print("--")
+my_new_model = BaseModel(**my_model_json)
+print(my_new_model.id)
+print(my_new_model)
+print(type(my_new_model.created_at))
+
+print("--")
+print(my_model is my_new_model)
 
 
 
