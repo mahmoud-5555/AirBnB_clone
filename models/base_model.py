@@ -38,7 +38,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             """check if there are no <kwargs> passed to the function"""
             return
-        print("start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n")
+
         for key, value in kwargs.items():
             """looping over kwarg's elements"""
             
@@ -53,7 +53,7 @@ class BaseModel:
 
             else:
                 """atherwise  just asign the value to the attribute"""
-                print("{} : {} <<<<<<<else side>>>>>>>>>".format(key, value))
+
                 if key != '__class__':
                     setattr(self, key, value)
 
@@ -75,7 +75,7 @@ class BaseModel:
         if 'id' not in isinstance_keys:
             """check if <id> in assained data or not"""
             self.id = str(uuid.uuid4())
-    
+
     def __str__(self):
         """
         this is the constructor of the base class that not take
