@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-import uuid,datetime
-
 """this the base module"""
+import uuid,datetime
+from engine import file_storage
+
+storage = __import__('__init__').storage
 class BaseModel:
     """
     this will be the base class for all other models
@@ -36,6 +38,7 @@ class BaseModel:
 
         if kwargs is {}:
             self.id = str(uuid.uuid4())
+            storage.new(self)
             """check if there are no <kwargs> passed to the function"""
             return
 
@@ -93,6 +96,7 @@ class BaseModel:
         a new value of updated_at as argumant and return nothing
         """
         self.updated_at = datetime.datetime.now()
+        storage.save()
     
     def to_dict(self):
         """
@@ -107,27 +111,6 @@ class BaseModel:
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
 
-my_model = BaseModel()
-my_model.name = "My_First_Model"
-my_model.my_number = 89
-print(my_model.id)
-print(my_model)
-print(type(my_model.created_at))
-print("--")
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
-
-print("--")
-my_new_model = BaseModel(**my_model_json)
-print(my_new_model.id)
-print(my_new_model)
-print(type(my_new_model.created_at))
-
-print("--")
-print(my_model is my_new_model)
 
 
 
