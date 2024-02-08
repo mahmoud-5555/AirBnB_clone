@@ -34,9 +34,10 @@ class BaseModel:
         """<isinstance_keys> list to save the attributes that asigned """
         isinstance_keys = []
 
-        if kwargs is {}:
+        if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
             storage.new(self)
+
             """check if there are no <kwargs> passed to the function"""
             return
 
@@ -83,10 +84,9 @@ class BaseModel:
         any argumants and return object in dictionary representation
         """
         obj_dict = (self.__dict__).copy()
-        
     
-        return '[{}] (<{}>) <{}>'.\
-        format(type(self).__name__, self.id, self.__dict__)
+        return '[{}] ({}) {}'.\
+        format(type(self).__name__, self.id, obj_dict)
     
     def save(self):
         """
@@ -94,6 +94,7 @@ class BaseModel:
         a new value of updated_at as argumant and return nothing
         """
         self.updated_at = datetime.datetime.now()
+        storage.new(self)
         storage.save()
     
     def to_dict(self):
@@ -101,12 +102,15 @@ class BaseModel:
         this function  it has no argumants and  returns 
         a dictionary containing all keys/values of __dict__ of the instance
         """
-        obj_dict = self.__dict__.copy()
+    def to_dict(self):
+        obj_dict = {}
+        for key, value in self.__dict__.items():
+            if key not in ['created_at', 'updated_at']:  # Exclude datetime attributes
+                obj_dict[key] = value
         obj_dict['__class__'] = self.__class__.__name__
-        
-
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
+        
         return obj_dict
 
 

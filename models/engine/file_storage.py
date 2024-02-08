@@ -21,15 +21,15 @@ class FileStorage:
 	
 	def new(self, opj):
 		""": sets in <__objects> the <obj> with key <obj class name>.id"""
-		self.__objects.update({opj.id : opj.to_dict})
+		self.__objects[opj.id] = opj.to_dict()
 
 	def save(self):
 		with open(self.__file_path,'w+', encoding='UTF-8') as json_file:
-			json.dump(self.__objects, json_file)
+			json.dump(self.__objects, json_file, indent=2)
 	
 
 	def reload(self):
-		with open(self.__file_path, 'w+',encoding='UTF-8') as json_file:
+		with open(self.__file_path,'w+',encoding='UTF-8') as json_file:
 			if json_file.read():
-				self.__objects = json.load(json_file)
+				print(json.load(json_file, indent=2))
 

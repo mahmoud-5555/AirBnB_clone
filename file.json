@@ -1,1 +1,10 @@
-{}
+{
+  "c8044e4c-629d-4874-965e-a90e22a0bce7": {
+    "id": "c8044e4c-629d-4874-965e-a90e22a0bce7",
+    "name": "My_First_Model",
+    "my_number": 89,
+    "__class__": "BaseModel",
+    "created_at": "2024-02-08T03:21:07.696302",
+    "updated_at": "2024-02-08T03:21:07.696534"
+  }
+}
