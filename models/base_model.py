@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """this the base module"""
 import uuid,datetime
-from models import storage
+import models
 class BaseModel:
     """
     this will be the base class for all other models
@@ -36,7 +36,7 @@ class BaseModel:
 
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
-            storage.new(self)
+            models.storage.new(self)
 
             """check if there are no <kwargs> passed to the function"""
             return
@@ -94,8 +94,8 @@ class BaseModel:
         a new value of updated_at as argumant and return nothing
         """
         self.updated_at = datetime.datetime.now()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
     
     def to_dict(self):
         """
@@ -105,7 +105,7 @@ class BaseModel:
     def to_dict(self):
         obj_dict = {}
         for key, value in self.__dict__.items():
-            if key not in ['created_at', 'updated_at']:  # Exclude datetime attributes
+            if key not in ['created_at', 'updated_at']:
                 obj_dict[key] = value
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
