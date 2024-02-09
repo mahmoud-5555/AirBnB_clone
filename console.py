@@ -2,6 +2,12 @@
 """this is the console module"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import models
 import json
 import re
@@ -36,11 +42,14 @@ class HBNBCommand(cmd.Cmd):
         saves it (to the JSON file) and prints the id
         """
         arg = models.sp_quotes(arg)
+        data = models.storage.all()
         if len(arg) > 0:
             if arg[0] in self.classes:
-                new_instance = eval(arg[0])()
-                new_instance.save()
-                print(new_instance.id)
+                new = eval(arg[0])()
+                data[arg[0]+ '.' + new.id] = new
+                models.storage.__objects = data
+                models.storage.save()
+                print(new.id)
             else:
                 print("** class doesn't exist **")
         else:
@@ -152,7 +161,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
 
-if(__name__ == '__main__'):
+if __name__ == '__main__':
     """ should not be executed when imported"""
 
     HBNBCommand().cmdloop()

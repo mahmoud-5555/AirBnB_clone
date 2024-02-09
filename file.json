@@ -1,34 +1,14 @@
 {
-  "BaseModel.bd900c4d-2fc0-460c-b8b9-346bdce3fbb0": {
-    "id": "bd900c4d-2fc0-460c-b8b9-346bdce3fbb0",
-    "name": "My_First_Model",
-    "my_number": 89,
-    "__class__": "BaseModel",
-    "created_at": "2024-02-08T04:48:09.205370",
-    "updated_at": "2024-02-08T04:48:09.205546"
+  "User.cf19d486-c437-42d8-8fac-ba88bb4f71fd": {
+    "id": "cf19d486-c437-42d8-8fac-ba88bb4f71fd",
+    "__class__": "User",
+    "created_at": "2024-02-09T18:59:47.380013",
+    "updated_at": "2024-02-09T18:59:47.380013"
   },
-  "BaseModel.81d528d8-b480-43b8-a995-a0baed5b0446": {
-    "id": "81d528d8-b480-43b8-a995-a0baed5b0446",
-    "name": "My_First_Model",
-    "my_number": 89,
-    "__class__": "BaseModel",
-    "created_at": "2024-02-08T05:38:00.552690",
-    "updated_at": "2024-02-08T05:38:00.552754"
-  },
-  "BaseModel.b4c44183-a1e5-475c-b2b3-210eb1e6bd04": {
-    "id": "b4c44183-a1e5-475c-b2b3-210eb1e6bd04",
-    "name": "My_First_Model",
-    "my_number": 89,
-    "__class__": "BaseModel",
-    "created_at": "2024-02-08T06:05:34.370912",
-    "updated_at": "2024-02-08T06:05:34.370980"
-  },
-  "BaseModel.a4aa36b5-903e-4926-a441-e2e7bfb6268e": {
-    "id": "a4aa36b5-903e-4926-a441-e2e7bfb6268e",
-    "name": "My_First_Model",
-    "my_number": 89,
-    "__class__": "BaseModel",
-    "created_at": "2024-02-08T23:05:30.422977",
-    "updated_at": "2024-02-08T23:05:30.423032"
+  "State.daffbfc2-35f5-4a90-9e20-a73f4254dcb5": {
+    "id": "daffbfc2-35f5-4a90-9e20-a73f4254dcb5",
+    "__class__": "State",
+    "created_at": "2024-02-09T19:01:09.478497",
+    "updated_at": "2024-02-09T19:01:09.478497"
   }
 }
