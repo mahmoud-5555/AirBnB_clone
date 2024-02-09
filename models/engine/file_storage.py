@@ -4,14 +4,16 @@ this file will be response
 of convert opject to json and
 save it to file
 """
-import json,os
+import json
+
+
 from ..base_model import BaseModel
 from ..user import User
-from..state import State
-from..city import City
+from ..state import State
+from ..city import City
 from ..amenity import Amenity
 from ..place import Place
-from ..review import  Review
+from ..review import Review
 
 
 class FileStorage:

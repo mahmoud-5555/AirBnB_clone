@@ -3,7 +3,7 @@
 from models import base_model
 
 
-class City(base_model):
-	"""this City class"""
-	state_id = ''
-	name = ''
+class City(base_model.BaseModel):
+    """this City class"""
+    state_id = ''
+    name = ''
