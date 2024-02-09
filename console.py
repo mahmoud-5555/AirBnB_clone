@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) > 0:
             if arg[0] in self.classes:
                 new = eval(arg[0])()
-                data[arg[0]+ '.' + new.id] = new
+                data[arg[0] + '.' + new.id] = new
                 models.storage.__objects = data
                 models.storage.save()
                 print(new.id)
