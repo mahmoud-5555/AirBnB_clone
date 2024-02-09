@@ -10,6 +10,8 @@ import re
 class HBNBCommand(cmd.Cmd):
     """this simple command processor"""
     prompt = '(hbnb) '
+    classes = ['BaseModel', 'User', 'State',
+               'City',  'Amenity', 'Place', 'Review']
 
     def do_quit(self, line):
         """ Quit command to exit the program"""
@@ -28,31 +30,33 @@ class HBNBCommand(cmd.Cmd):
         cmd.Cmd.do_help(self, arg)
         print()
 
-    def do_create(self, obj_name):
+    def do_create(self, arg):
         """
         Creates a new instance of BaseModel,
         saves it (to the JSON file) and prints the id
         """
-        if not obj_name:
-            print("** class name missing **")
-        elif obj_name != 'BaseModel':
-            print("** class doesn't exist **")
+        arg = models.sp_quotes(arg)
+        if len(arg) > 0:
+            if arg[0] in self.classes:
+                new_instance = eval(arg[0])()
+                new_instance.save()
+                print(new_instance.id)
+            else:
+                print("** class doesn't exist **")
         else:
-            new_instance = BaseModel()
-            new_instance.save()
-            print(new_instance.id)
+            print("** class name missing **")
 
     def do_show(self, arg):
         """
         Prints the string representation of an
         instance based on the class name and id
         """
-        classes = ['BaseModel']
+
         data = models.storage.all()
         arg = models.sp_quotes(arg)
         length = len(arg)
         if length > 0:
-            if arg[0] in classes:
+            if arg[0] in self.classes:
                 if length > 1:
                     if arg[0] + '.' + arg[1] in data.keys():
                         print(data[arg[0] + '.' + arg[1]])
@@ -70,12 +74,11 @@ class HBNBCommand(cmd.Cmd):
         destroy the string representation of an
         instance based on the class name and id
         """
-        classes = ['BaseModel']
         data = models.storage.all()
         arg = models.sp_quotes(arg)
         length = len(arg)
         if length > 0:
-            if arg[0] in classes:
+            if arg[0] in self.classes:
                 if length > 1:
                     if arg[0] + '.' + arg[1] in data.keys():
                         del data[arg[0] + '.' + arg[1]]
@@ -95,7 +98,6 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all
         instances based or not on the class name
         """
-        classes = ['BaseModel']
         data = models.storage.all()
         arg = models.sp_quotes(arg)
         length = len(arg)
@@ -105,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
                 all_instance.append(str(instance))
             print(all_instance)
         else:
-            if arg[0] in classes:
+            if arg[0] in self.classes:
                 all_instance = []
                 for id in data.keys():
                     if id.split('.')[0] == arg[0]:
@@ -119,12 +121,11 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name
         and id by adding or updating attribute
         """
-        classes = ['BaseModel']
         data = models.storage.all()
         arg = models.sp_quotes(arg)
         length = len(arg)
         if length > 0:
-            if arg[0] in classes:
+            if arg[0] in self.classes:
                 if length > 1:
                     if arg[0] + '.' + arg[1] in data.keys():
                         if length > 2:
