@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""our comments"""
+"""this the files configration"""
 from models.engine.file_storage import FileStorage
 from . import base_model
 from . import user
@@ -13,10 +13,12 @@ import re
 
 storage = FileStorage()
 storage.reload()
-__all__ = ['base_model', 'user', 'state', 'city',  'amenity', 'place', 'review']
+__all__ = ['base_model', 'user', 'state',
+           'city',  'amenity', 'place', 'review']
+
 
 def sp_quotes(string):
-    
-    pattern = r'(?:[^\s,"]|"(?:\\.|[^"])*")+' 
+    """this function used in make split to the lines"""
+    pattern = r'(?:[^\s,"]|"(?:\\.|[^"])*")+'
     matches = re.findall(pattern, string)
     return [match.strip('"\'') for match in matches]
