@@ -1,7 +1,8 @@
-#!/usr/bin/python3
 import unittest
+import sys
+sys.path.append('../')
 from datetime import datetime
-from ..models.base_model import BaseModel
+from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
 
