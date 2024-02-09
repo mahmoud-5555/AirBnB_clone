@@ -25,7 +25,7 @@ class BaseModel:
         what will happen if the <kwargs> is empty
         what will happen if the <kwargs> without <id> or <created_at>?
         what if the data wrteen wrong ? This will raise a ValueError
-    
+
         >> idon't know how i will deal with it if the <updated_at> not found
         but in this case maybe we can create opject withot last update
         but the problem when we tring to re converted to josn >> the value of 
@@ -43,7 +43,7 @@ class BaseModel:
 
         for key, value in kwargs.items():
             """looping over kwarg's elements"""
-            
+
             """check if the  attribute exist in the BaseModel Class"""
             if key  == 'created_at':
                 """convert the string to datetiem object"""
@@ -68,7 +68,7 @@ class BaseModel:
             self.updated_at = self.created_at
             isinstance_keys.append('updated_at')
             isinstance_keys.append('created_at')
-    
+
         if 'updated_at' not in isinstance_keys:
             """if there is no <updated_at>, copy the <create_at>"""
             self.updated_at = self.created_at
@@ -84,10 +84,10 @@ class BaseModel:
         any argumants and return object in dictionary representation
         """
         obj_dict = (self.__dict__).copy()
-    
+
         return '[{}] ({}) {}'.\
-        format(type(self).__name__, self.id, obj_dict)
-    
+                format(type(self).__name__, self.id, obj_dict)
+
     def save(self):
         """
         this function  it take
@@ -96,13 +96,12 @@ class BaseModel:
         self.updated_at = datetime.datetime.now()
         models.storage.new(self)
         models.storage.save()
-    
+
     def to_dict(self):
         """
         this function  it has no argumants and  returns 
         a dictionary containing all keys/values of __dict__ of the instance
         """
-    def to_dict(self):
         obj_dict = {}
         for key, value in self.__dict__.items():
             if key not in ['created_at', 'updated_at']:
@@ -110,9 +109,4 @@ class BaseModel:
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
-        
         return obj_dict
-
-
-
-

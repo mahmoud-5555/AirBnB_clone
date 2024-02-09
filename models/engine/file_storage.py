@@ -6,6 +6,13 @@ save it to file
 """
 import json,os
 from ..base_model import BaseModel
+from ..user import User
+from..state import State
+from..city import City
+from ..amenity import Amenity
+from ..place import Place
+from ..review import  Review
+
 
 class FileStorage:
     """
@@ -25,6 +32,7 @@ class FileStorage:
         self.__objects[ opj.__class__.__name__+'.'+ opj.id ] = opj
 
     def save(self):
+        """function that response to save the data in json file"""
         with open(self.__file_path,'w+', encoding='UTF-8') as json_file:
             obj_dict = {}
             for key, value in self.__objects.items():
@@ -32,13 +40,11 @@ class FileStorage:
 
             json.dump(obj_dict, json_file, indent=2)
     
-
     def reload(self):
+        """reload objects from file"""
         with open(self.__file_path, 'r+', encoding='UTF-8') as json_file:
             if json_file.read():
-                json_file.seek(0)  # Move the file pointer to the beginning
+                json_file.seek(0)
                 obj_dict = json.load(json_file)
                 for key,value in obj_dict.items():
                     self.__objects[key] = eval(value['__class__'])(**value)
-                    
-                #print(str(obj_dict))
