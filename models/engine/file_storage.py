@@ -48,12 +48,12 @@ class FileStorage:
 
     def reload(self):
         """reload objects from file"""
-        with open(self.__file_path, 'w+') as json_file:
-            try:
+        try:
+            with open(self.__file_path, 'r') as json_file:
                 if json_file.read():
                     json_file.seek(0)
                     obj_dict = json.load(json_file)
                     for key, value in obj_dict.items():
                         self.__objects[key] = eval(value['__class__'])(**value)
-            except Exception:
-                pass
+        except Exception:
+            pass
