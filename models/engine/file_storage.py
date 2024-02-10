@@ -4,7 +4,8 @@ this file will be response
 of convert opject to json and
 save it to file
 """
-import json,os
+import json
+import os
 
 
 from ..base_model import BaseModel
