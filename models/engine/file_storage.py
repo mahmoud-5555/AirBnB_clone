@@ -36,11 +36,14 @@ class FileStorage:
     def save(self):
         """function that response to save the data in json file"""
         with open(self.__file_path, 'w+') as json_file:
-            obj_dict = {}
-            for key, value in self.__objects.items():
-                obj_dict[key] = value.to_dict()
+            try:
+                obj_dict = {}
+                for key, value in self.__objects.items():
+                    obj_dict[key] = value.to_dict()
 
-            json.dump(obj_dict, json_file)
+                json.dump(obj_dict, json_file)
+            except:
+                pass
 
     def reload(self):
         """reload objects from file"""
