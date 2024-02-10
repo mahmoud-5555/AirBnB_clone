@@ -35,7 +35,7 @@ class FileStorage:
 
     def save(self):
         """function that response to save the data in json file"""
-        with open(self.__file_path, 'w+', encoding='UTF-8') as json_file:
+        with open(self.__file_path, 'w+') as json_file:
             obj_dict = {}
             for key, value in self.__objects.items():
                 obj_dict[key] = value.to_dict()
@@ -44,7 +44,7 @@ class FileStorage:
 
     def reload(self):
         """reload objects from file"""
-        with open(self.__file_path, 'w+', encoding='UTF-8') as json_file:
+        with open(self.__file_path, 'w+') as json_file:
             try:
                 if json_file.read():
                     json_file.seek(0)
