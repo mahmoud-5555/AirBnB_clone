@@ -140,11 +140,16 @@ class HBNBCommand(cmd.Cmd):
                         if length > 2:
                             if length > 3:
                                 temp = data[arg[0] + '.' + arg[1]]
-                                value = getattr(temp, arg[2])
-                                class_name = eval(value.__class__.__name__)
-                                new_value = class_name(arg[3])
-                                setattr(temp, arg[2], new_value)
-                                data[arg[0] + '.' + arg[1]] = temp
+                                try:
+                                    value = getattr(temp, arg[2])
+                                    class_name = eval(value.__class__.__name__)
+                                    new_value = class_name(arg[3])
+                                    setattr(temp, arg[2], new_value)
+                                    data[arg[0] + '.' + arg[1]] = temp
+                                except Exception:
+                                    setattr(temp, arg[2], arg[3])
+                                    data[arg[0] + '.' + arg[1]] = temp
+
                                 models.storage.__objects = data
                                 models.storage.save()
                             else:
