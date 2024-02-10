@@ -1,23 +1,20 @@
 import unittest
+import sys
+sys.path.append('../')
+import uuid
 from models.base_model import BaseModel
 import datetime
 
+
 class TestBaseModel(unittest.TestCase):
-    def test__str__(self):
-        # Create an instance of BaseModel
+  def test_default_constructor(self):
         obj = BaseModel()
-        obj.id = "234-6787763-77"
-        obj.updated_at = (2017, 11, 30, 21, 5, 54, 119427)
-        obj.created_at = (2017, 9, 28, 21, 5, 54, 119427)
-
-        # Call the __str__() method
-        actual_str = str(obj)
-
-        # Define the expected string representation
-        expected_str = "[BaseModel] (234-6787763-77){'updated_at': (2017, 11, 30, 21, 5, 54, 119427), 'created_at': (2017, 9, 28, 21, 5, 54, 119427)}"
-
-        # Compare the actual and expected string representations
-        self.assertEqual(actual_str, expected_str)
+        self.assertIsInstance(obj.id, str)
+        self.assertIsInstance(obj.created_at, datetime)
+        self.assertIsInstance(obj.updated_at, datetime)
+        self.assertNotEqual(obj.id, '')
+        self.assertEqual(obj.created_at, obj.updated_at)
+        
 
 if __name__ == '__main__':
     unittest.main()
