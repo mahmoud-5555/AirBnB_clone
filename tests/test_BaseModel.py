@@ -32,6 +32,5 @@ class TestBaseModel(unittest.TestCase):
     def test_invalid_kwargs(self):
         with self.assertRaises(ValueError):
             obj = BaseModel(created_at='invalid_date_format')
-
 if __name__ == '__main__':
     unittest.main()
