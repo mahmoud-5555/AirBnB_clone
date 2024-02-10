@@ -42,7 +42,7 @@ class FileStorage:
                     obj_dict[key] = value.to_dict()
 
                 json.dump(obj_dict, json_file)
-            except:
+            except Exception:
                 pass
 
     def reload(self):
@@ -54,5 +54,5 @@ class FileStorage:
                     obj_dict = json.load(json_file)
                     for key, value in obj_dict.items():
                         self.__objects[key] = eval(value['__class__'])(**value)
-            except:
+            except Exception:
                 pass
