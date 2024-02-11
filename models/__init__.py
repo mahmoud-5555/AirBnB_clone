@@ -22,3 +22,12 @@ def sp_quotes(string):
     pattern = r'(?:[^\s,"]|"(?:\\.|[^"])*")+'
     matches = re.findall(pattern, string)
     return [match.strip('"\'') for match in matches]
+<<<<<<< HEAD
+=======
+
+def sp_dot(string):
+    """this function used in make split to the lines with dot"""
+    pattern = r'(?:[^\s,".()]|"(?:\\.|[^"])*")+'
+    matches = re.findall(pattern, string)
+    return [match.strip('"\'') for match in matches]
+>>>>>>> df050ce (merge)
