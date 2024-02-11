@@ -165,6 +165,37 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    def do_all_withoutstr(self, arg):
+        data = models.storage.all()
+        arg = models.sp_quotes(arg)
+        length = len(arg)
+        if arg[0] in self.classes:
+            all_instance = {}
+            for id, instance in data.items():
+                if id.split('.')[0] == arg[0]:
+                    all_instance[id] = instance.to_dict()
+            print(all_instance)
+        else:
+            print("** class doesn't exist **")
+    
+    def default(self, line):
+        """
+        this to custom the point
+        where consle will start
+            """
+        commands = {"all": self.do_all_withoutstr, "show": self.do_show,
+                    "destroy": self.do_destroy,"update": self.do_update,
+                    "quit": self.do_quit, "EOF": self.do_EOF, "create": self.do_create,
+                    "emptyline": self.emptyline, "help": self.do_help}
+        command = models.sp_dot(line)
+        if len(command) >= 2:
+            if command[1] in commands:
+                temp = command[1]
+                command[1] = command[0]
+                command[0] = temp
+                if command[0] == 'all':
+                    commands[command[0]](command[1])
+
 
 if __name__ == '__main__':
     """ should not be executed when imported"""
