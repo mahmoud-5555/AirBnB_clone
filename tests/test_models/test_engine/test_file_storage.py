@@ -4,6 +4,7 @@ import os
 import sys
 import json
 
+
 from unittest.mock import patch
 from datetime import datetime
 from models.base_model import BaseModel
@@ -17,8 +18,9 @@ from models.state import State
 from models.user import User
 
 
-
 class TestFileStorage(unittest.TestCase):
+    """testing file storage"""
+
     def setUp(self):
         self.file_path = 'file.json'
 
@@ -60,6 +62,7 @@ class TestFileStorage(unittest.TestCase):
                 self.assertEqual(storage.all(), {})
         except Exception:
             pass
+
 
 if __name__ == '__main__':
     unittest.main()
