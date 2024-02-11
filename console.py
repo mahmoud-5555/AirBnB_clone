@@ -147,7 +147,8 @@ class HBNBCommand(cmd.Cmd):
                                     setattr(temp, arg[2], new_value)
                                     data[arg[0] + '.' + arg[1]] = temp
                                 except Exception:
-                                    setattr(temp, arg[2], arg[3])
+                                    my_type = type(arg[2])
+                                    setattr(temp, arg[2], my_type(arg[3]))
                                     data[arg[0] + '.' + arg[1]] = temp
 
                                 models.storage.__objects = data
@@ -215,6 +216,8 @@ class HBNBCommand(cmd.Cmd):
                     commands[command[0]](command[1] + ' ' + command[2])
                 elif command[0] == 'destroy':
                     commands[command[0]](command[1] + ' ' + command[2])
+                elif command[0] == 'update':
+                    commands[command[0]](command[1] + ', ' + command[2] + ', ' + command[3] + ', ' + command[4])
 
 
 if __name__ == '__main__':
