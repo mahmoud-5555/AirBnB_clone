@@ -211,6 +211,8 @@ class HBNBCommand(cmd.Cmd):
                     commands[command[0]](command[1])
                 elif command[0] == 'count':
                     commands[command[0]](command[1])
+                elif command[0] == 'show':
+                    commands[command[0]](command[1] + ' ' + command[2])
 
 
 if __name__ == '__main__':
