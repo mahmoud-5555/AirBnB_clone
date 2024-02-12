@@ -147,7 +147,8 @@ class HBNBCommand(cmd.Cmd):
                                     setattr(temp, arg[2], new_value)
                                     data[arg[0] + '.' + arg[1]] = temp
                                 except Exception:
-                                    setattr(temp, arg[2], arg[3])
+                                    my_type = type(arg[2])
+                                    setattr(temp, arg[2], my_type(arg[3]))
                                     data[arg[0] + '.' + arg[1]] = temp
 
                                 models.storage.__objects = data
@@ -164,6 +165,78 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
+
+    def do_all_withoutstr(self, arg):
+        data = models.storage.all()
+        arg = models.sp_quotes(arg)
+        length = len(arg)
+        if arg[0] in self.classes:
+            all_instance = {}
+            for id, instance in data.items():
+                if id.split('.')[0] == arg[0]:
+                    all_instance[id] = instance.to_dict()
+            print(all_instance)
+        else:
+            print("** class doesn't exist **")
+
+    def do_count(self, arg):
+        """
+        retrieve the number of instances of a class
+        """
+        count = 0
+        data = models.storage.all()
+        arg = models.sp_quotes(arg)
+        length = len(arg)
+        if arg[0] in self.classes:
+            for id in data.keys():
+                if id.split('.')[0] == arg[0]:
+                    count += 1
+            print("{:d}".format(count))
+
+    def default(self, line):
+        """
+        this to custom the point
+        where consle will start
+            """
+        commands = {"all": self.do_all_withoutstr,
+                    "show": self.do_show,
+                    "count": self.do_count,
+                    "destroy": self.do_destroy,
+                    "update": self.do_update,
+                    "quit": self.do_quit, "EOF": self.do_EOF,
+                    "create": self.do_create,
+                    "emptyline": self.emptyline, "help": self.do_help}
+        for delimiter in ['(', ')', '.', '{', '}', '"', "'", ',', ':']:
+            line = " ".join(line.split(delimiter))
+            command = line.split()
+        if len(command) >= 2:
+            if command[1] in commands:
+                temp = command[1]
+                command[1] = command[0]
+                command[0] = temp
+                if command[0] == 'all':
+                    commands[command[0]](command[1])
+                elif command[0] == 'count':
+                    commands[command[0]](command[1])
+                elif command[0] == 'show':
+                    commands[command[0]](command[1] + ' ' + command[2])
+                elif command[0] == 'destroy':
+                    commands[command[0]](command[1] + ' ' + command[2])
+                elif command[0] == 'update':
+                    if len(command) > 5:
+                        j = 0
+                        for i in range(3, len(command)):
+                            j += 1
+                        x = 3
+                        for i in range(0, int(float(j) / 2)):
+                            prameter1 = command[1] + ', ' + command[2]
+                            prameter2 = command[x] + ', ' + command[x + 1]
+                            commands[command[0]](prameter1 + ', ' + prameter2)
+                            x = x + 2
+                    else:
+                        prameter1 = command[1] + ', ' + command[2]
+                        prameter2 = command[3] + ', ' + command[4]
+                        commands[command[0]](prameter1 + ', ' + prameter2)
 
 
 if __name__ == '__main__':
