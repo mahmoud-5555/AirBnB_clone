@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """this module used for test User class"""
 
 import unittest
