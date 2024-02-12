@@ -3,6 +3,8 @@
 import unittest
 import os
 import json
+import sys
+sys.path.append("./../../../")
 
 from unittest.mock import patch
 from datetime import datetime
