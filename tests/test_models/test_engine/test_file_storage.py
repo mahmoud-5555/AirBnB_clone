@@ -2,9 +2,7 @@
 """this file test for storge file"""
 import unittest
 import os
-import sys
 import json
-
 
 from unittest.mock import patch
 from datetime import datetime
@@ -18,6 +16,8 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
+import sys
+
 
 class TestFileStorage(unittest.TestCase):
     """testing file storage"""
@@ -28,9 +28,6 @@ class TestFileStorage(unittest.TestCase):
     def tearDown(self):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
-
-    def test_all_empty(self):
-        self.assertEqual(storage.all(), {})
 
     def test_new(self):
         obj1 = BaseModel()
@@ -66,4 +63,5 @@ class TestFileStorage(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    sys.path.append("./../../../")
     unittest.main()

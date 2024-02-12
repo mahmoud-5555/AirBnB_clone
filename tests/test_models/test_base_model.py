@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """this the test cacrss of base_model"""
+
 import unittest
 from unittest.mock import patch
 import sys
+sys.path.append("./../../")
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage

@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 """this module used for test Amenity class"""
+import sys
+sys.path.append("./../../")
 
 import unittest
 from unittest.mock import patch
-import sys
-
-
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
