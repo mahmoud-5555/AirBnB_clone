@@ -190,19 +190,25 @@ class HBNBCommand(cmd.Cmd):
         if arg[0] in self.classes:
             for id in data.keys():
                 if id.split('.')[0] == arg[0]:
-                    count +=1
+                    count += 1
             print("{:d}".format(count))
-    
+
     def default(self, line):
         """
         this to custom the point
         where consle will start
             """
-        commands = {"all": self.do_all_withoutstr, "show": self.do_show,"count": self.do_count,
-                    "destroy": self.do_destroy,"update": self.do_update,
-                    "quit": self.do_quit, "EOF": self.do_EOF, "create": self.do_create,
+        commands = {"all": self.do_all_withoutstr,
+                    "show": self.do_show,
+                    "count": self.do_count,
+                    "destroy": self.do_destroy,
+                    "update": self.do_update,
+                    "quit": self.do_quit, "EOF": self.do_EOF,
+                    "create": self.do_create,
                     "emptyline": self.emptyline, "help": self.do_help}
-        command = models.sp_dot(line)
+        for delimiter in ['(', ')', '.', '{', '}', '"', "'", ',', ':']:
+            line = " ".join(line.split(delimiter))
+            command = line.split()
         if len(command) >= 2:
             if command[1] in commands:
                 temp = command[1]
@@ -217,7 +223,20 @@ class HBNBCommand(cmd.Cmd):
                 elif command[0] == 'destroy':
                     commands[command[0]](command[1] + ' ' + command[2])
                 elif command[0] == 'update':
-                    commands[command[0]](command[1] + ', ' + command[2] + ', ' + command[3] + ', ' + command[4])
+                    if len(command) > 5:
+                        j = 0
+                        for i in range(3, len(command)):
+                            j += 1
+                        x = 3
+                        for i in range(0, int(float(j) / 2)):
+                            prameter1 = command[1] + ', ' + command[2]
+                            prameter2 = command[x] + ', ' + command[x + 1]
+                            commands[command[0]](prameter1 + ', ' + prameter2)
+                            x = x + 2
+                    else:
+                        prameter1 = command[1] + ', ' + command[2]
+                        prameter2 = command[3] + ', ' + command[4]
+                        commands[command[0]](prameter1 + ', ' + prameter2)
 
 
 if __name__ == '__main__':
